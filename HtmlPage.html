@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>載入XML</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="editplus" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("button").click(function () {
+                $.ajax({
+                    url: 'ajax.xml',
+                    type: 'GET',
+                    dataType: 'xml',
+                    timeout: 1000,
+                    cache: false,
+                    error: function (xml) {
+                        alert('載入XML文件出錯');
+                    },
+                    success: function (xml) {
+                        //建立一個程式碼片段
+                        var frag = $("<ul/>");
+                        //遍歷所有student節點
+                        $(xml).find("student").each(function (i) {
+                            //獲取id節點
+                            var id = $(this).children("id"),
+                                //獲取節點文字
+                                id_value = id.text(),
+                                //獲取student下的email屬性。
+                                email = $(this).attr("email");
+                            //構造HTML字串，通過append方法新增進之前建立程式碼片段
+                            frag.append("<li>" + id_value + "-" + email + "</li>");
+                        });
+                        //最後得到的frag新增進HTML文件中
+                        frag.appendTo("#load");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <button>載入</button>
+    <div id="load"></div>
+</body>
+</html>
