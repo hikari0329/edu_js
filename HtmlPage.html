@@ -9,7 +9,7 @@
         $(function () {
             $("button").click(function () {
                 $.ajax({
-                    url: 'ajax.xml',
+                    url: 'Report.rdlc',
                     type: 'GET',
                     dataType: 'xml',
                     timeout: 1000,
@@ -23,13 +23,13 @@
                         //遍歷所有student節點
                         $(xml).find("student").each(function (i) {
                             //獲取id節點
-                            var id = $(this).children("id"),
+                            var id = $(this).children("Fields"),
                                 //獲取節點文字
-                                id_value = id.text(),
+                                id_value = id.text();
                                 //獲取student下的email屬性。
-                                email = $(this).attr("email");
+                                //email = $(this).attr("email");
                             //構造HTML字串，通過append方法新增進之前建立程式碼片段
-                            frag.append("<li>" + id_value + "-" + email + "</li>");
+                            frag.append("<li>" + id_value + "</li>");
                         });
                         //最後得到的frag新增進HTML文件中
                         frag.appendTo("#load");
