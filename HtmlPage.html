@@ -9,7 +9,7 @@
         $(function () {
             $("button").click(function () {
                 $.ajax({
-                    url: 'Report.rdlc',
+                    url: 'Report.xml',
                     type: 'GET',
                     dataType: 'xml',
                     timeout: 1000,
@@ -21,9 +21,9 @@
                         //建立一個程式碼片段
                         var frag = $("<ul/>");
                         //遍歷所有student節點
-                        $(xml).find("student").each(function (i) {
+                        $(xml).find("Fields").each(function (i) {
                             //獲取id節點
-                            var id = $(this).children("Fields"),
+                            var id = $(this).children("Field"),
                                 //獲取節點文字
                                 id_value = id.text();
                                 //獲取student下的email屬性。
