@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<script type="text/javascript">
+function callBackdata(txt) {
+//將字串轉成jsonDoc
+	var jsonDoc = JSON.parse(txt);
+
+	//將jsonDoc輸出成表格資料
+	str ="<table border=1><tr><td>編號</td><td>姓名</td><td>英文名</td><td>住址</td><td>電話</td></tr>";
+
+	for (i=0;i<jsonDoc.length;i++)
+	{
+		str +="<tr><td>" + jsonDoc[i].id;
+		str +="</td><td>" + jsonDoc[i].name;
+		str +="</td><td>" + jsonDoc[i].englishname;
+		str +="</td><td>" + jsonDoc[i].address;
+		str +="</td><td>" + jsonDoc[i].tel;
+		str +="</td></tr>";
+	}
+	str +="</table>";
+	document.getElementById("id01").innerHTML = str;
+}
+</script>
+</head>
+<body>
+<p>
+<div class="purple1" id="id01"></div>
+</p>
+<script type="text/javascript" src="http://acupun.site/lecture/jquery_phoneGap/18-CrossDomain02-json.js"> </script>
+</body>
+</html>

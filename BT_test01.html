@@ -8,9 +8,43 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script
+        function verifyCallback(token) {
+            let formData = new FormData();
+            formData.append('token', token);        
+            fetch(uriGAS, {
+            method: "POST",
+            body: formData
+            }).then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                // 分數大過 0.5，才當作是真實人類操作
+                if(result.score > 0.5) {
+                    // 判斷是真人時要做的事
+                }
+                // 分數低於 0.5，當作機器人
+                else {
+                    // 判斷是機器人時要做的事
+                }
+                } else {
+                    window.alert(result['error-codes'][0])
+                }
+            })
+            .catch(err => {
+                window.alert(err)
+            })        
+        }
+    </script>
 </head>
 
 <body>
+    <button
+    class="g-recaptcha"
+    data-sitekey="6LeSlxscAAAAAJqMEQr-oFAo8jTQOBGqZU1zUwRZ"
+    data-action="verify1"
+    data-callback="verifyCallback">送出</button>
+
     <input type="text" type="date">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

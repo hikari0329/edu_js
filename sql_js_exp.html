@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+     
+        
+    </head>
+
+	<body>
+		<button name="download" type="button" value="val" onclick="save()">下載</button>
+		<button name="show" type="button" value="show" onclick="show()">show</button>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/sql.js"></script>
+		<script>
+			//建立sqllite例項，獲取資料
+			function show() {
+				$.ajax({
+					type: "GET",
+					url: "data/test.db",
+					success: function (data) {
+						console.info("檔案讀取成功了：" + data);
+						//                  var fr = new FileReader();
+						var uInt8Array = new Uint8Array(data);
+						var db = new SQL.Database(uInt8Array);
+						console.log("------db" + db);
+						var contents = db.exec("SELECT * from test");
+						console.log("------content" + content);
+					}
+				});
+			};
+		</script>
+		<script>
+			function save() {
+				//Create the database
+				var db = new SQL.Database();
+				db.run("CREATE TABLE test (列1 int, 列2 char);");
+				db.run("INSERT INTO test VALUES (0,'hello');");
+				db.run("INSERT INTO test VALUES (1,'world');");
+				db.run("INSERT INTO test VALUES (55,'34534545');");
+				db.run("INSERT INTO test VALUES (166,'woteggrgrld');");
+				//save to local file
+				var data = db.export();
+				var arraybuff = data.buffer;
+				var blob = new Blob([arraybuff]);
+				var url = window.URL.createObjectURL(blob);
+				var a = document.createElement("a");
+				a.href = url;
+				a.download = 'test.db';
+				a.click();
+				window.URL.revokeObjectURL(url);
+			}
+		</script>
+	</body>
+	
+
+</html>

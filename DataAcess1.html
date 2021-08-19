@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+
+    <input id="Button1" type="button" value="button" onclick="getdata('Local_Json')" /><br />
+    <input id="Button2" type="button" value="button" onclick="getdata('Json')" />
+    <div id="show"></div>
+    <script>
+        function getdata(tp) {
+            if (tp == "Local_Json") {
+                $.ajax({
+                    url: "ceshi.json",//json檔案位置
+                    type: "get",//請求方式為get
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    dataType: "json", //返回資料格式為json
+                    success: function (data) {//請求成功完成後要執行的方法
+                        //each迴圈 使用$.each方法遍歷返回的資料date
+                        var str = "";
+                        $.each(data.first, function (key, item) {
+                            str += '<li id="' + key + '">' + item.name + '</li>';
+                        });
+                        $("#show").html(str);
+                    }
+                })
+            }
+            else if (tp == "Json") {
+                var dataUrl = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6"
+                $.ajax({
+                    url: dataUrl,
+                    method: 'GET',
+                    dataType: 'json',
+                    data: '',
+                    async: true,
+                    success: res => {
+                        var str = "";
+                        $.each(res, function (key, item) {
+                            str += '<li id="' + key + '">' + item.showInfo[0].location + '</li>';
+                        });
+                        $("#show").html(str);
+                    },
+                    error: err => {
+                        console.log(err)
+                    },
+                });
+            }
+        }
+    </script>
+</body>
+</html>

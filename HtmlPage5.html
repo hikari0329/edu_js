@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "data/ceshi.json",//json檔案位置
+                type: "GET",//請求方式為get
+                dataType: "json", //返回資料格式為json
+                success: function (data) {//請求成功完成後要執行的方法
+                    //each迴圈 使用$.each方法遍歷返回的資料date
+                    $.each(data.first, function (i, item) {
+                        var str = '<div>姓名:' + item.name + '性別：' + item.sex + '</div>';
+                        document.write(str);
+                    })
+                }
+            })
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ClientSideCaptcha-master",
+    "\\sql.js-master"
   ],
+  "SelectedNode": "\\sql.js-master\\index.html",
   "PreviewInSolutionExplorer": false
 }
